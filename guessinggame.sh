@@ -1,23 +1,24 @@
 #!/usr/bin/env bash
 
 function guesschecker {
-  if [[ $guess -eq \D ]] ;
-    then echo "     Your guess is not a number. Kindly guess with a number."
-  elif [[ "$guess" -eq "$count" ]] ;
-    then echo
-    echo "     <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>"
-    echo "     |  Congratulation! You have correctly guessed the number of files! |"
-    echo "     <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>"
-    echo
-  elif [[ "$guess" -gt "$count" ]] ;
-    then echo "     Woah! Woah! Thats way too high a guess! Maybe try a little lower?."
-  elif [[ "$guess" -lt "$count" ]] ;
-    then echo "     C'mon don't be so timid. Go Big or Go Home! Try Bigger!"
+  if [[ $guess =~ ^[0-9]+ ]] ; then
+    if [[ "$guess" -eq "$count" ]] ;
+      then echo
+      echo "     <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>"
+      echo "     |  Congratulation! You have correctly guessed the number of files! |"
+      echo "     <<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>"
+      echo
+    elif [[ "$guess" -gt "$count" ]] ;
+      then echo "     Woah! Woah! Thats way too high a guess! Maybe try a little lower?."
+    elif [[ "$guess" -lt "$count" ]] ;
+      then echo "     C'mon don't be so timid. Go Big or Go Home! Try Bigger!"
+    fi
+  else
+    echo "     Your guess is not a number. Kindly guess with a number."
   fi
 }
 
-count=$(ls -p | grep -v / | wc -l)
-echo "count"
+count=$(ls -a | wc -l)
 
 echo
 echo "     __,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__,.-'~'-.,__ "
